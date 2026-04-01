@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
- 
+
 import '../../../../model/artist/artist.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/async_value.dart';
 import '../../../widgets/song/artist_tile.dart';
+import '../artist_screen.dart';
 import '../view_model/artists_view_model.dart';
 
 class ArtistsContent extends StatelessWidget {
@@ -37,7 +38,16 @@ class ArtistsContent extends StatelessWidget {
           child: ListView.builder(
             physics: AlwaysScrollableScrollPhysics(),
             itemCount: artists.length,
-            itemBuilder: (context, index) => ArtistTile(artist: artists[index]),
+            itemBuilder: (context, index) => ArtistTile(
+              artist: artists[index],
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ArtistScreen(artist: artists[index]),
+                  ),
+                );
+              },
+            ),
           ),
         );
     }

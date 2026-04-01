@@ -1,4 +1,6 @@
 import '../../../model/artist/artist.dart';
+import '../../../model/comment/comment.dart';
+import '../../../model/songs/song.dart';
 import 'artist_repository.dart';
 
 class ArtistRepositoryMock implements ArtistRepository {
@@ -19,5 +21,37 @@ class ArtistRepositoryMock implements ArtistRepository {
         orElse: () => throw Exception("No artist with id $id in the database"),
       );
     });
+  }
+
+  @override
+  Future<List<Song>> fetchSongsByArtistId(
+    String artistId, {
+    bool forceFetch = false,
+  }) async {
+    return Future.delayed(Duration(milliseconds: 300), () => []);
+  }
+
+  @override
+  Future<List<Comment>> fetchCommentsByArtistId(
+    String artistId, {
+    bool forceFetch = false,
+  }) async {
+    return Future.delayed(Duration(milliseconds: 300), () => []);
+  }
+
+  @override
+  Future<Comment> addComment({
+    required String artistId,
+    required String text,
+  }) async {
+    return Future.delayed(
+      Duration(milliseconds: 300),
+      () => Comment(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        artistId: artistId,
+        text: text,
+        createdAt: DateTime.now(),
+      ),
+    );
   }
 }
